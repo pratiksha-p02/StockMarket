@@ -1,0 +1,178 @@
+<script src="https://code.highcharts.com/stock/indicators/indicators.js"></script>
+<script src="https://code.highcharts.com/stock/indicators/sma.js"></script>
+<script src="https://code.highcharts.com/stock/highstock.js"></script>
+<script src="https://code.highcharts.com/stock/highstock.js"></script>
+<!-- Include the vbp module -->
+<script src="https://code.highcharts.com/stock/indicators/indicators.js"></script>
+<script src="https://code.highcharts.com/stock/indicators/volume-by-price.js"></script>
+
+<mat-tab-group class="container mt-5">
+
+  <!-- SUMMARY TAB -->
+  <mat-tab label="Summary">
+
+    <div class="container mt-3">
+      <div class="row text-center text-md-left">
+
+        <!-- Price Info -->
+        <div *ngIf="companyStockQuoteData" class="col-md-3 col-sm-12">
+          <h5><b>High Price:</b> {{companyStockQuoteData.h | number:'1.2-2'}}</h5>
+          <h5><b>Low Price:</b> {{companyStockQuoteData.l | number:'1.2-2'}}</h5>
+          <h5><b>Open Price:</b> {{companyStockQuoteData.o | number:'1.2-2'}}</h5>
+          <h5><b>Prev Close:</b> {{companyStockQuoteData.pc | number:'1.2-2'}}</h5>
+        </div>
+
+        <!-- About Company -->
+        <div *ngIf="companyAboutData" class="col-md-3 col-sm-12 mt-4">
+          <b><u>About the Company</u></b>
+
+          <h5><b>IPO:</b> {{companyAboutData.ipo}}</h5>
+          <h5><b>Industry:</b> {{companyAboutData.finnhubIndustry}}</h5>
+
+          <h5>
+            <b>Web:</b>
+            <a [href]="companyAboutData.weburl" target="_blank">
+              {{companyAboutData.weburl}}
+            </a>
+          </h5>
+
+          <p><b>Peers:</b></p>
+          <div style="max-height: 100px; overflow-y: auto;">
+            <span *ngFor="let peer of companyPeers"
+                  (click)="handlePeerClick(peer)"
+                  style="color: blue; cursor: pointer;">
+              {{peer}},
+            </span>
+          </div>
+        </div>
+
+        <!-- Chart -->
+        <div class="col-md-6 col-sm-12">
+          <highcharts-chart
+            [Highcharts]="highcharts"
+            [options]="chartOptions"
+            style="width: 100%; height: 300px; display: block;">
+          </highcharts-chart>
+        </div>
+
+      </div>
+    </div>
+
+  </mat-tab>
+
+
+  <!-- NEWS TAB -->
+  <mat-tab label="Top News">
+
+    <div class="container mt-3">
+      <div class="row g-2">
+
+        <div *ngFor="let item of companyNews"
+             class="col-sm-12 col-md-6"
+             (click)="openModal(item)">
+
+          <div class="card h-100 border rounded">
+
+            <div class="row g-0">
+
+              <div class="col-md-4 d-flex align-items-center">
+                <img [src]="item.image"
+                     class="img-fluid w-100"
+                     style="object-fit: cover;">
+              </div>
+
+              <div class="col-md-8">
+                <div class="card-body">
+                  <h5 class="card-title">{{ item.headline }}</h5>
+                </div>
+              </div>
+
+            </div>
+
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+  </mat-tab>
+
+
+  <!-- CHARTS TAB -->
+  <mat-tab label="Charts">
+
+    <highcharts-chart
+      id="container"
+      [Highcharts]="highchartsForChartsTab"
+      [options]="chartOptions3"
+      style="width: 100%; height: 500px; display: block;">
+    </highcharts-chart>
+
+  </mat-tab>
+
+
+  <!-- INSIGHTS TAB -->
+  <mat-tab label="Insights">
+
+    <div class="d-flex justify-content-center">
+      <div class="w-100">
+
+        <h2 class="text-center">Insider Sentiments</h2>
+
+        <table class="table text-center mx-auto" style="max-width: 60%;">
+          <thead>
+            <tr>
+              <th>{{stockName}}</th>
+              <th>MSPR</th>
+              <th>Change</th>
+            </tr>
+          </thead>
+
+          <tbody>
+            <tr>
+              <td><b>Total</b></td>
+              <td>{{totalMSPR | number:'1.2-2'}}</td>
+              <td>{{totalChange | number:'1.2-2'}}</td>
+            </tr>
+
+            <tr>
+              <td><b>Positive</b></td>
+              <td>{{positiveMSPR | number:'1.2-2'}}</td>
+              <td>{{positiveChange | number:'1.2-2'}}</td>
+            </tr>
+
+            <tr>
+              <td><b>Negative</b></td>
+              <td>{{negativeMSPR | number:'1.2-2'}}</td>
+              <td>{{negativeChange | number:'1.2-2'}}</td>
+            </tr>
+          </tbody>
+
+        </table>
+
+      </div>
+    </div>
+
+    <div class="row">
+
+      <div class="col-md-6 col-sm-12">
+        <highcharts-chart
+          [Highcharts]="highchartsInsights1"
+          [options]="chartOptionsInsights1"
+          style="width: 100%; height: 400px; display: block;">
+        </highcharts-chart>
+      </div>
+
+      <div class="col-md-6 col-sm-12">
+        <highcharts-chart
+          [Highcharts]="highcharts2"
+          [options]="chartOptions2"
+          style="width: 100%; height: 400px; display: block;">
+        </highcharts-chart>
+      </div>
+
+    </div>
+
+  </mat-tab>
+
+</mat-tab-group>

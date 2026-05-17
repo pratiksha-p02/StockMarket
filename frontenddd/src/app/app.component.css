@@ -1,0 +1,18 @@
+/* Page container: full height layout */
+#pageContainer {
+  display: flex;
+  flex-direction: column;
+  min-height: calc(100vh - 55px);
+}
+
+/* Main content wrapper grows to fill available space */
+.wrapper {
+  flex-grow: 1;
+  padding-bottom: 2.5rem;
+}
+
+/* Footer styling */
+app-footerr {
+  width: 100%;
+  z-index: 1000;
+}

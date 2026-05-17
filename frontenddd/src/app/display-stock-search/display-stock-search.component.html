@@ -1,0 +1,128 @@
+<app-search-stock></app-search-stock>
+
+<!-- Alerts -->
+<div class="alert alert-success text-center" *ngIf="raiseGStar">
+  {{ companyProfileData?.name }} added to Watchlist
+</div>
+
+<div class="alert alert-danger text-center" *ngIf="raiseRStar">
+  {{ companyProfileData?.name }} removed from Watchlist
+</div>
+
+<div class="alert alert-success text-center" *ngIf="raiseGStock">
+  {{ companyProfileData?.name }} Stock Bought Successfully
+</div>
+
+<div class="alert alert-danger text-center" *ngIf="raiseRStock">
+  {{ companyProfileData?.name }} Stock Sold Successfully
+</div>
+
+<!-- Loading -->
+<div *ngIf="isLoading" class="loading-container">
+  <mat-spinner diameter="50"></mat-spinner>
+</div>
+
+<!-- Main Content -->
+<div *ngIf="!isLoading">
+
+  <div class="container">
+    <div class="row justify-content-center text-center">
+
+      <!-- Stock + Actions -->
+      <div class="col-12 col-sm-4 d-flex flex-column align-items-center">
+
+        <div class="d-flex align-items-center">
+          <span class="h2">{{ stockName }}</span>
+
+          <span (click)="isNotFavvvYet()" *ngIf="!IsFavTrueOrFalse">
+            <i class="bi bi-star h2 ms-2"></i>
+          </span>
+
+          <span (click)="isAlreadyFavvv()" *ngIf="IsFavTrueOrFalse">
+            <i class="bi bi-star-fill h2 ms-2" style="color:#ffdd03;"></i>
+          </span>
+        </div>
+
+        <h3 class="h4 text-muted fw-bold">{{ companyProfileData?.name }}</h3>
+        <h5 class="h6 text-muted">{{ companyProfileData?.exchange }}</h5>
+
+        <div class="mt-2">
+          <button class="btn btn-success"
+                  (click)="openBUYSELLModal(companyProfileData?.ticker, companyStockQuoteData.c)">
+            Buy
+          </button>
+
+          <button class="btn btn-danger ms-2"
+                  *ngIf="noPortfolioItems === 1"
+                  (click)="openSELLModal(companyProfileData?.ticker, companyStockQuoteData.c)">
+            Sell
+          </button>
+        </div>
+      </div>
+
+      <!-- Logo + Market Status -->
+      <div class="col-12 col-sm-4 d-flex flex-column justify-content-between align-items-center">
+
+        <img [src]="companyProfileData?.logo"
+             alt="Company Logo"
+             class="img-fluid"
+             style="max-width: 50%;">
+
+        <ng-container *ngIf="openMarket; else closedMarket">
+          <p class="text-success fw-bold">Market is Open</p>
+        </ng-container>
+
+        <ng-template #closedMarket>
+          <p class="text-danger fw-bold">
+            Market is Closed on {{ formattedDateTimeM }}
+          </p>
+        </ng-template>
+
+      </div>
+
+      <!-- Quote -->
+      <div class="col-12 col-sm-4 d-flex flex-column align-items-center">
+
+        <span class="h2"
+              [ngClass]="{
+                'text-success': companyStockQuoteData?.d >= 0,
+                'text-danger': companyStockQuoteData?.d < 0
+              }">
+          {{ companyStockQuoteData?.c | number:'1.2-2' }}
+        </span>
+
+        <div>
+          <i *ngIf="companyStockQuoteData?.d >= 0"
+             class="bi bi-caret-up-fill text-success h3"></i>
+
+          <i *ngIf="companyStockQuoteData?.d < 0"
+             class="bi bi-caret-down-fill text-danger h3"></i>
+        </div>
+
+        <span class="h5"
+              [ngClass]="{
+                'text-success': companyStockQuoteData?.d >= 0,
+                'text-danger': companyStockQuoteData?.d < 0
+              }">
+          {{ companyStockQuoteData?.d | number:'1.2-2' }}
+          ({{ companyStockQuoteData?.dp | number:'1.2-2' }}%)
+        </span>
+
+        <h6 class="mt-2">{{ formattedDateTimeN }}</h6>
+      </div>
+
+    </div>
+  </div>
+
+  <app-tabsfor-search></app-tabsfor-search>
+</div>
+
+<!-- Styles (optional, move to CSS file ideally) -->
+<style>
+.loading-container {
+  display: grid;
+  place-items: center;
+  height: 100vh;
+  width: 100vw;
+}
+</style>

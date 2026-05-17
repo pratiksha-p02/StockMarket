@@ -1,0 +1,59 @@
+runtime: nodejs
+env: flex
+runtime_config:
+  operating_system: ubuntu22
+# This sample incurs costs to run on the App Engine flexible environment.
+# The settings below are to reduce costs during testing and are not appropriate
+# for production use. For more information, see:
+# https://cloud.google.com/appengine/docs/flexible/nodejs/configuring-your-app-with-app-yaml
+manual_scaling:
+  instances: 1
+resources:
+  cpu: 1
+  memory_gb: 0.5
+  disk_size_gb: 10
+
+# runtime: nodejs
+# env: flex
+# # vm: true
+# # var os = require('os');
+# # console.log(os.type()); // "Windows_NT"
+# # console.log(os.release()); // "10.0.14393"
+# # console.log(os.platform());
+# runtime_config:
+#       runtime_version: "20"
+# # runtime: nodejs20
+# # vm: true
+
+# env_variables:
+#   MONGO_DB_URI: "mongodb+srv://pp05133:CoolConverse1@cluster0.jvdohqi.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0"
+
+# handlers:
+# - url: /favicon.ico
+#   static_files: public/favicon.ico
+#   upload: public/favicon.ico
+  # script: auto
+# runtime: nodejs20  # specify your Node.js version
+# env: standard
+# # instance_class: F1  # Instance class specifies the compute resources for your app. F1 is the smallest available.
+
+# automatic_scaling:
+#   target_cpu_utilization: 0.6
+#   min_instances: 1
+#   max_instances: 5
+
+# env_variables:
+#   MONGO_DB_URI: "mongodb+srv://pp05133:CoolConverse1@cluster0.jvdohqi.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0"
+#   NODE_ENV: "production"
+
+# handlers:
+# - url: /favicon.ico
+#   static_files: public/favicon.ico
+#   upload: public/favicon.ico
+#   # script: auto
+
+
+
+# runtime: nodejs20
+# env: flex
+

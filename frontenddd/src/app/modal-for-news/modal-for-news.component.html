@@ -1,0 +1,61 @@
+<!-- Header -->
+<div class="modal-header d-flex align-items-center justify-content-between border-bottom">
+
+  <div class="flex-grow-1 m-2">
+    <h2 class="modal-title mb-1">{{ item.source }}</h2>
+    <h4 class="text-muted mb-0">{{ formattedTime }}</h4>
+  </div>
+
+  <button
+    type="button"
+    class="btn-close"
+    aria-label="Close"
+    (click)="closeModal()">
+  </button>
+
+</div>
+
+<!-- Body -->
+<div class="modal-body m-2">
+
+  <h3 class="fw-bold">{{ item.headline }}</h3>
+
+  <p>{{ item.summary }}</p>
+
+  <p>
+    For more details,
+    <a [href]="item.url" target="_blank" rel="noopener noreferrer">
+      click here
+    </a>.
+  </p>
+
+  <!-- Share section -->
+  <div class="border rounded p-3 mt-3">
+
+    <h5 class="mb-3">Share</h5>
+
+    <!-- Twitter -->
+    <button mat-icon-button (click)="shareOnTwitter()">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
+        <path d="M459.4 151.7c.3 4.5 .3 9.1 .3 13.6 ..."/>
+      </svg>
+    </button>
+
+    <!-- Facebook -->
+    <button mat-icon-button>
+      <a
+        [href]="'https://www.facebook.com/sharer/sharer.php?u=' + item.url"
+        target="_blank"
+        rel="noopener noreferrer"
+        class="text-decoration-none">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512">
+          <path d="M64 32C28.7 32 0 60.7 0 96V416c0 35.3 ..."/>
+        </svg>
+
+      </a>
+    </button>
+
+  </div>
+
+</div>

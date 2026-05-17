@@ -1,0 +1,118 @@
+<h1>My Portfolio</h1>
+
+<h3>
+  <strong>
+    Money in Wallet: $ {{ totMoneyInWallet | number:'1.2-2' }}
+  </strong>
+</h3>
+
+<!-- Loading -->
+<div *ngIf="isLoading" class="loading-container">
+  <mat-spinner diameter="50"></mat-spinner>
+</div>
+
+<div *ngIf="!isLoading">
+
+  <!-- Alerts -->
+  <div class="alert alert-warning text-center" *ngIf="raiseYAlert">
+    Currently you don't have any stock
+  </div>
+
+  <div class="alert alert-success text-center" *ngIf="raiseGAlert">
+    {{ alertNameStock }} Stock Bought Successfully
+  </div>
+
+  <div class="alert alert-danger text-center" *ngIf="raiseRAlert">
+    {{ alertNameStock }} Stock Sold Successfully
+  </div>
+
+  <!-- Portfolio Cards -->
+  <div *ngFor="let item of displayData" class="card mb-3">
+
+    <!-- Header -->
+    <div class="card-header bg-light" (click)="directToNextComponent(item.symbol)">
+      <h2 class="mb-0">
+        {{ item.sName }}
+        <span class="fw-light">{{ item.symbol }}</span>
+      </h2>
+    </div>
+
+    <!-- Body -->
+    <div class="card-body">
+      <div class="row">
+
+        <!-- Left Side -->
+        <div class="col-12 col-md-6">
+
+          <div class="d-flex justify-content-between">
+            <span>Quantity:</span>
+            <span>{{ item.qty | number:'1.2-2' }}</span>
+          </div>
+
+          <div class="d-flex justify-content-between mt-3">
+            <span>Avg. Cost/Share:</span>
+            <span>{{ item.avgCost | number:'1.2-2' }}</span>
+          </div>
+
+          <div class="d-flex justify-content-between mt-3">
+            <span>Total Cost:</span>
+            <span>{{ item.totCost | number:'1.2-2' }}</span>
+          </div>
+
+        </div>
+
+        <!-- Right Side -->
+        <div class="col-12 col-md-6">
+
+          <div class="d-flex justify-content-between"
+               [ngClass]="item.change >= 0 ? 'text-success' : 'text-danger'">
+
+            <span>Change:</span>
+            <span>
+              <i class="bi"
+                 [ngClass]="item.change >= 0 ? 'bi-caret-up-fill text-success' : 'bi-caret-down-fill text-danger'">
+              </i>
+              {{ item.change | number:'1.2-2' }}
+            </span>
+          </div>
+
+          <div class="d-flex justify-content-between mt-3"
+               [ngClass]="item.change >= 0 ? 'text-success' : 'text-danger'">
+            <span>Current Price:</span>
+            <span>{{ item.cp | number:'1.2-2' }}</span>
+          </div>
+
+          <div class="d-flex justify-content-between mt-3"
+               [ngClass]="item.change >= 0 ? 'text-success' : 'text-danger'">
+            <span>Market Value:</span>
+            <span>{{ item.mv | number:'1.2-2' }}</span>
+          </div>
+
+        </div>
+
+      </div>
+    </div>
+
+    <!-- Actions -->
+    <div class="card-footer bg-light">
+      <div class="row">
+
+        <div class="col-6 col-md-2">
+          <button class="btn btn-primary w-100"
+                  (click)="buy(item.symbol, item.cp)">
+            Buy
+          </button>
+        </div>
+
+        <div class="col-6 col-md-2">
+          <button class="btn btn-danger w-100"
+                  (click)="sell(item.symbol, item.cp)">
+            Sell
+          </button>
+        </div>
+
+      </div>
+    </div>
+
+  </div>
+</div>

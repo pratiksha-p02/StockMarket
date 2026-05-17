@@ -1,0 +1,41 @@
+
+<h2 style="margin-left: 20px;"><strong>My Watchlist</strong></h2>
+<div  *ngIf="isLoading" style="display: grid;
+place-items: center;
+height: 100vh; 
+width: 100vw;">
+<mat-spinner diameter="50" style="text-align: center;align-items: center;align-self: center;"></mat-spinner> 
+</div>
+<div  *ngIf="!isLoading">
+<div *ngIf="watchlistapidata.length > 0; else emptyWatchlist" class="container my-4">
+  <div *ngFor="let item of watchlistapidata" class="card mb-3" >
+    <button type="button" class="btn-close" (click)="deleteDataFromMongo(item._id)" aria-label="Close"></button>
+   
+    <div class="card-body" (click)="directToNextComponentClick(item.symbol)">
+
+      <div class="d-flex justify-content-between align-items-start" >
+        <div class="d-flex flex-column">
+          <strong class="h5">{{item.symbol}}</strong>
+          <span class="text-muted">{{item.name}}</span>
+        </div>
+
+        <div class="d-flex flex-column align-items-end">
+          <strong [ngClass]="{'text-success': item.dp >= 0, 'text-danger': item.dp < 0}" class="h4">{{item.c |
+            number:'1.2-2'}}</strong>
+          <span [ngClass]="{'text-success': item.dp >= 0, 'text-danger': item.dp < 0}">
+            <i class="bi" [ngClass]="{'bi-arrow-up': item.dp >= 0, 'bi-arrow-down': item.dp < 0}"></i>
+            {{ item.p | number:'1.2-2' }} ({{ item.dp | number:'1.2-2' }}%)
+          </span>
+        </div>
+
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<ng-template #emptyWatchlist>
+  <div class="alert alert-warning" role="alert" style="text-align: center;">
+    Currently, you don't have any stock in your watchlist.
+  </div>
+</ng-template></div>

@@ -1,0 +1,41 @@
+
+<!-- The Modal -->
+<div> 
+  <div class="modal" tabindex="-1" role="dialog">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+      
+     <!-- <div>hey</div> -->
+        
+      </div>
+    </div>
+  </div>
+</div>
+   <!-- Modal Header -->
+   <div class="modal-header" style="border-bottom: 1px solid black;">
+    <h2 class="modal-title">{{item}}</h2>
+    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" (click)="closeModal()" style="border-bottom: 1px solid blue;background-color: transparent;color: blue;"></button>
+  </div>
+  
+  <!-- Modal Body -->
+  <div class="modal-body">
+    <p>Current Price: <strong>{{item2 | currency}}</strong></p>
+    <p>Money in Wallet: <strong>{{apitotmoney | currency}}</strong></p>
+    
+    <form>
+      <div class="mb-3">
+        <label for="quantityInput" class="form-label">Quantity:</label>
+        <input type="number" class="form-control" id="quantityInput" [(ngModel)]="quantity" name="quantity" placeholder="Enter quantity" (input)="checkQuantity()">
+      </div>
+      
+      <p class="fw-bold">Total: <span>{{ quantity * item2 | currency }}</span></p>
+    </form>
+    
+    <div [innerHTML]="alertforlessmoney" style="color: red;"></div>
+    <span [innerHTML]="message"></span>
+  </div>
+  
+  <!-- Modal Footer -->
+  <div class="modal-footer">
+    <button type="button" class="btn btn-danger" [disabled]="!isButtonEnabled()" (click)="sell()">Sell</button>
+  </div>
