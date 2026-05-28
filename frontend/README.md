@@ -1,6 +1,6 @@
-# Frontenddd
+# Frontend
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 17.2.2.
+This is the Angular frontend for the stock market search app. See the root [README.md](../README.md) for full project setup, backend configuration, environment variables, and deployment notes.
 
 ## Development server
 
