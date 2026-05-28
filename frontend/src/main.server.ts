@@ -31,7 +31,7 @@ const domino = require('domino');
 
 const template = fs
   .readFileSync(
-    path.join('frontenddd/dist/frontenddd/browser', 'index.html')
+    path.join('frontend/dist/frontend/browser', 'index.html')
   )
   .toString();
 

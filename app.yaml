@@ -26,7 +26,7 @@ resources:
 # # vm: true
 
 # env_variables:
-#   MONGO_DB_URI: "mongodb+srv://pp05133:CoolConverse1@cluster0.jvdohqi.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0"
+#   Configure production secrets outside source control.
 
 # handlers:
 # - url: /favicon.ico
@@ -43,7 +43,6 @@ resources:
 #   max_instances: 5
 
 # env_variables:
-#   MONGO_DB_URI: "mongodb+srv://pp05133:CoolConverse1@cluster0.jvdohqi.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0"
 #   NODE_ENV: "production"
 
 # handlers:
@@ -56,4 +55,3 @@ resources:
 
 # runtime: nodejs20
 # env: flex
-

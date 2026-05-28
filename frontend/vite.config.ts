@@ -3,6 +3,6 @@ import { defineConfig } from 'vite';
 
 export default defineConfig({
   build: {
-    outDir: 'frontenddd/dist/frontenddd/browser',
+    outDir: 'frontend/dist/frontend/browser',
   },
 });

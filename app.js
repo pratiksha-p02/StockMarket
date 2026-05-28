@@ -13,11 +13,21 @@ app.use(express.urlencoded({ extended: false }));
 
 /* ---------------- ENV ---------------- */
 const PORT = process.env.PORT || 3000;
-const MONGO_URI = process.env.MONGO_URI;
-const DB_NAME = process.env.DB_NAME;
 
-const FINNHUB_API_KEY = process.env.FINNHUB_API_KEY;
-const POLYGON_API_KEY = process.env.POLYGON_API_KEY;
+function requiredEnv(name) {
+  const value = process.env[name];
+
+  if (!value) {
+    throw new Error(`Missing required environment variable: ${name}`);
+  }
+
+  return value;
+}
+
+const MONGO_URI = requiredEnv('MONGO_URI');
+const DB_NAME = requiredEnv('DB_NAME');
+const FINNHUB_API_KEY = requiredEnv('FINNHUB_API_KEY');
+const POLYGON_API_KEY = requiredEnv('POLYGON_API_KEY');
 
 /* ---------------- DB ---------------- */
 let db;
@@ -182,6 +192,34 @@ app.delete('/api/MSCollection/deleteBySymbol/:symbol', async (req, res) => {
   const result = await db
     .collection('MSCollection')
     .deleteOne({ symbol });
+
+  res.json(result);
+});
+
+app.delete('/api/MSCollection/deleteData/:id', async (req, res) => {
+  const { id } = req.params;
+
+  const result = await db.collection('MSCollection').deleteOne({
+    _id: new ObjectId(id),
+  });
+
+  res.json(result);
+});
+
+/* WALLET */
+app.get('/api/miscCollection/getData', async (req, res) => {
+  const data = await db.collection('miscCollection').find({}).toArray();
+  res.json(data);
+});
+
+app.put('/api/miscCollection/updateData/:id', async (req, res) => {
+  const { id } = req.params;
+  const { _id, ...rest } = req.body;
+
+  const result = await db.collection('miscCollection').updateOne(
+    { _id: new ObjectId(id) },
+    { $set: rest }
+  );
 
   res.json(result);
 });

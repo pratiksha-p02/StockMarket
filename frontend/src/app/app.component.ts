@@ -8,6 +8,6 @@ import { CUSTOM_ELEMENTS_SCHEMA, Component, NgModule } from '@angular/core';
 
 
 export class AppComponent {
-  title = 'frontenddd';
+  title = 'frontend';
 }
 
