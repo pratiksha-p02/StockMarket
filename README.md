@@ -1,6 +1,6 @@
 # Stock Market Search App
 
-A full-stack stock search and portfolio application built for CSCI 571 Homework 3. The app uses Angular and Bootstrap on the frontend, Node.js/Express on the backend, MongoDB Atlas for persistence, and server-side proxy routes for Finnhub and Polygon.io market data.
+A full-stack stock search and portfolio application for youngsters to learn and practice trading. The app uses Angular and Bootstrap on the frontend, Node.js/Express on the backend, MongoDB Atlas for persistence, and server-side proxy routes for Finnhub and Polygon.io market data.
 
 ## Features
 
